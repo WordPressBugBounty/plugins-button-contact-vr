@@ -3,8 +3,8 @@ Contributors: buttonizer
 Buy plugin: https://buttonizer.io
 Tags: contact button, whatsapp, live chat, chat, chatbot
 Requires at least: 4.7
-Tested up to: 6.8
-Stable tag: 5.0.3
+Tested up to: 6.9
+Stable tag: 5.0.4
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -27,7 +27,7 @@ Powerful platform to create Call, Chat, Contact buttons, and Popups to increase 
 * Create high-converting floating menus (see screenshots below)
 * Analytics dashboard to see all interactions, leads and conversions
 
-https://www.youtube.com/watch?v=7zWvVY8mLEQ
+https://www.youtube.com/watch?v=9t49F9touXo
 
 = WhatsApp Chat, Business and 40+ click to chat channels 💬 =
 
@@ -52,7 +52,6 @@ Buttonizer is specially designed in creating easy, smart floating chat buttons. 
  * Slack
  * Microsoft Teams
  * Snapchat
- * Skype
  * Signal
  * LINE
  * Telegram
@@ -278,7 +277,7 @@ And the beauty of all: All actions are hidden in one button. The moment a visito
 In fact, Buttonizer is an addiction to use. Your website visitors will interact as never before.
 
 = Which buttons are available with Buttonizer? =
-WhatsApp chat, Facebook Messenger, Instagram, Email, SMS, Snapchat, X (Twitter), LinkedIn, Skype, Vkontakte, Phone (click to call), Telegram, Line, WeChat, Viber, Waze, Zalo, Google Maps, Poptin, Custom URL, Page Select.
+WhatsApp chat, Facebook Messenger, Instagram, Email, SMS, Snapchat, X (Twitter), LinkedIn, Microsoft Teams, Vkontakte, Phone (click to call), Telegram, Line, WeChat, Viber, Waze, Zalo, Google Maps, Poptin, Custom URL, Page Select.
 
 = What widgets does Buttonizer support? =
 
@@ -428,4 +427,7 @@ Tested up to wordpress: 6.2
 * Fix: bug fix
 
 = 5.0.3 - September 25, 2025 =
+* Bug fix
+
+= 5.0.4 - October 16, 2025 =
 * Bug fix
