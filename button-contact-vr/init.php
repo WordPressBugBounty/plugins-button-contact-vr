@@ -84,7 +84,7 @@ function bz_button_contact_redirect_to_page()
 }
 
 /*
- * Contact Button Admin Dashboard
+ * Chat Button Admin Dashboard
  */
 if (is_admin()) {
     // Load Admin page
