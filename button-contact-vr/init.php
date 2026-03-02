@@ -125,7 +125,7 @@ add_action('wp_head', function () {
         }
 
         // Define page data
-        $buttonizerData = "if(!window._buttonizer) { window._buttonizer = {}; };var _buttonizer_page_data = " . json_encode($pageData) . ";window._buttonizer.data = { ..._buttonizer_page_data, ...window._buttonizer.data };";
+        $buttonizerData = "if(!window._buttonizer) { window._buttonizer = {}; };var _buttonizer_page_data = " . wp_json_encode($pageData) . ";window._buttonizer.data = { ..._buttonizer_page_data, ...window._buttonizer.data };";
 
         echo '<script type="text/javascript">' . $buttonizerData . '</script>';
     }

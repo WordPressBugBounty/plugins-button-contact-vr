@@ -4,7 +4,7 @@ Buy plugin: https://buttonizer.io
 Tags: live chat, chat, chatbot, AI chat, whatsapp
 Requires at least: 4.7
 Tested up to: 6.9
-Stable tag: 5.0.5
+Stable tag: 5.0.6
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -322,9 +322,9 @@ number: 6123456789
 
 == Screenshots ==
 
-1. Create many different call/chat/contact actions such as WhatsApp, Messenger, Live Chat, Telegram, Zalo, and 40+ others.
-2. Comes with an integrated Live Chat widget that visitors can use right on your website to chat with you directly!
-3. Dramatically reduce support time by setting up a Helper Chatbot to automatically respond to common visitor questions using the power of A.I.
+1. Comes with an integrated Live Chat widget that visitors can use right on your website to chat with you directly!
+2. Dramatically reduce support time by setting up an AI Chatbot powered by ChatGPT to automatically respond to questions 24/7
+3. Create many different chat/call/contact actions such as WhatsApp, Messenger, Live Chat, Telegram, Zalo, and 40+ others.
 4. Live Chat Dashboard where you can chat with your website visitors and view critical information such as pages visited, etc.
 5. Real-time Visitor Monitoring dashboard where you can monitor your visitors and initiate live chats proactively.
 6. Live chat with your visitors from your mobile device using our iPhone/iPad or Android apps. Receive push notifications for every chat!
@@ -441,3 +441,9 @@ Tested up to wordpress: 6.2
 
 = 5.0.4 - October 16, 2025 =
 * Bug fix
+
+= 5.0.5 - February 16, 2026 =
+* Minor improvements
+
+= 5.0.6 - March 02, 2026 =
+* Bug fixes

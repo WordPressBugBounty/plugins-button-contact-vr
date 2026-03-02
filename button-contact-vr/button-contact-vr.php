@@ -4,7 +4,7 @@
  * Plugin Name: Buttonizer - Live Chat, AI Chatbot, & Chat Widgets
  * Plugin URI: https://buttonizer.io
  * Description: Powerful platform with Live Chat, AI Chatbots, and Real-Time Visitor Monitoring! Also, create Call, Email, SMS, & Contact buttons to increase conversions. Supports WhatsApp, Messenger, Live Chat, and 40+ other actions.
- * Version: 5.0.5
+ * Version: 5.0.6
  * Author: Buttonizer
  * Author URI: https://buttonizer.io
  * License: GPLv2
@@ -40,7 +40,7 @@ if ($legacyUser || defined("BZ_CONTACT_BUTTON_USE_LEGACY")) {
     require_once __DIR__ . "/legacy/plugin.php";
 } else {
     // Define current version
-    define('BZ_CONTACT_BUTTON_VERSION', '5.0.5');
+    define('BZ_CONTACT_BUTTON_VERSION', '5.0.6');
     define('BZ_CONTACT_BUTTON_PLUGIN_FILE', __FILE__);
 
     // Autoloader
