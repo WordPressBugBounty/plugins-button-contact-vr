@@ -17,6 +17,7 @@ use BZContactButton\Utils\ApiRequest;
 use BZContactButton\Utils\Account;
 use BZContactButton\Utils\PermissionCheck;
 use BZContactButton\Utils\Settings;
+use BZContactButton\Utils\SiblingPlugins;
 
 /**
  * Disconnect API
@@ -55,15 +56,21 @@ class Disconnect
 
     /**
      * Disconnect
+     *
+     * @param bool $disconnectSiblings Whether to also disconnect sibling Buttonizer plugins.
+     *                                  true  = UI "Disconnect" button (explicit user action)
+     *                                  false = uninstall hook (only this plugin is being removed)
      */
-    public function disconnect()
+    public function disconnect($disconnectSiblings = true)
     {
-        // API request
-        $result = ApiRequest::post("/disconnect");
+        // Only revoke the token server-side if this is an explicit disconnect
+        // or if no sibling plugin still needs the shared token.
+        if ($disconnectSiblings || SiblingPlugins::findConnectedSibling() === null) {
+            $result = ApiRequest::post("/disconnect");
 
-        // Handle errors
-        if (is_a($result, 'WP_Error') && !in_array($result->get_error_code(), self::$continueIfStatus)) {
-            return $result;
+            if (is_a($result, 'WP_Error') && !in_array($result->get_error_code(), self::$continueIfStatus)) {
+                return $result;
+            }
         }
 
         // Set last synced at
@@ -79,6 +86,11 @@ class Disconnect
 
         // Erase account settings
         Account::emptyAccountSettings();
+
+        // Disconnect all sibling Buttonizer plugins
+        if ($disconnectSiblings) {
+            SiblingPlugins::disconnectAllSiblings();
+        }
 
         return [
             'status' => 'success'

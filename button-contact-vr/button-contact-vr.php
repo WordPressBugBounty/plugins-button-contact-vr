@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name: Buttonizer - Live Chat, AI Chatbot, & Chat Widgets
+ * Plugin Name: Buttonizer - Live Chat, AI Chatbot, Call, Chat, Contact Button
  * Plugin URI: https://buttonizer.io
  * Description: Powerful platform with Live Chat, AI Chatbots, and Real-Time Visitor Monitoring! Also, create Call, Email, SMS, & Contact buttons to increase conversions. Supports WhatsApp, Messenger, Live Chat, and 40+ other actions.
- * Version: 5.0.6
+ * Version: 5.0.7
  * Author: Buttonizer
  * Author URI: https://buttonizer.io
  * License: GPLv2
@@ -40,7 +40,7 @@ if ($legacyUser || defined("BZ_CONTACT_BUTTON_USE_LEGACY")) {
     require_once __DIR__ . "/legacy/plugin.php";
 } else {
     // Define current version
-    define('BZ_CONTACT_BUTTON_VERSION', '5.0.6');
+    define('BZ_CONTACT_BUTTON_VERSION', '5.0.7');
     define('BZ_CONTACT_BUTTON_PLUGIN_FILE', __FILE__);
 
     // Autoloader
@@ -52,3 +52,25 @@ if ($legacyUser || defined("BZ_CONTACT_BUTTON_USE_LEGACY")) {
     // Get environment vars
     require_once __DIR__ . "/init.php";
 }
+
+// Uninstall
+register_uninstall_hook(__FILE__, 'bzContactButtonUninstallEvent');
+
+function bzContactButtonUninstallEvent()
+{
+    // Only handle uninstall for the new (non-legacy) code path
+    if (!class_exists('\\BZContactButton\\Utils\\ApiRequest')) {
+        return;
+    }
+
+    if (\BZContactButton\Utils\ApiRequest::getApiToken() === false) {
+        return;
+    }
+
+    try {
+        (new \BZContactButton\Api\Connection\Disconnect)->disconnect(false);
+    } catch (\Error $err) {
+        // Errored out, nevermind then
+    }
+}
+

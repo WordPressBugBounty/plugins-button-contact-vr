@@ -1,10 +1,10 @@
-=== Buttonizer - Live Chat, AI Chatbot, & Chat Widgets ===
+=== Buttonizer – Live Chat, AI Chatbot, Call, Chat, Contact Button ===
 Contributors: buttonizer
 Buy plugin: https://buttonizer.io
-Tags: live chat, chat, chatbot, AI chat, whatsapp
+Tags: contact button, live chat, chat, chatbot, whatsapp
 Requires at least: 4.7
 Tested up to: 6.9
-Stable tag: 5.0.6
+Stable tag: 5.0.7
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -446,4 +446,7 @@ Tested up to wordpress: 6.2
 * Minor improvements
 
 = 5.0.6 - March 02, 2026 =
+* Bug fixes
+
+= 5.0.7 - April 01, 2026 =
 * Bug fixes
