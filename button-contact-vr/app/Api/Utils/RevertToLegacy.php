@@ -13,7 +13,8 @@
 
 namespace BZContactButton\Api\Utils;
 
-use BZContactButton\Utils\PermissionCheck;
+use BZContactButton\Core\PluginConfig;
+use BZContactButton\Core\Utils\PermissionCheck;
 
 /**
  * Reverts to previous version
@@ -28,7 +29,7 @@ class RevertToLegacy
      */
     public function registerRoute()
     {
-        register_rest_route('bz_contact_button', '/revert_to_legacy', [
+        register_rest_route(PluginConfig::name(), '/revert_to_legacy', [
             [
                 'methods'  => ['POST'],
                 'args' => [

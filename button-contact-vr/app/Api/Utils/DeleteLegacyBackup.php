@@ -13,8 +13,9 @@
 
 namespace BZContactButton\Api\Utils;
 
-use BZContactButton\Utils\PermissionCheck;
-use BZContactButton\Utils\Settings;
+use BZContactButton\Core\PluginConfig;
+use BZContactButton\Core\Utils\PermissionCheck;
+use BZContactButton\Core\Utils\Settings;
 
 /**
  * Delete Legacy Backup API
@@ -30,7 +31,7 @@ class DeleteLegacyBackup
      */
     public function registerRoute()
     {
-        register_rest_route('bz_contact_button', '/delete_legacy_backup', [
+        register_rest_route(PluginConfig::name(), '/delete_legacy_backup', [
             [
                 'methods'  => ['POST'],
                 'args' => [

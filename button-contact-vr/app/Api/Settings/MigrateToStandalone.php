@@ -13,10 +13,11 @@
 
 namespace BZContactButton\Api\Settings;
 
-use BZContactButton\Utils\ApiRequest;
-use BZContactButton\Utils\Account;
-use BZContactButton\Utils\PermissionCheck;
-use BZContactButton\Utils\Settings;
+use BZContactButton\Core\PluginConfig;
+use BZContactButton\Core\Utils\ApiRequest;
+use BZContactButton\Core\Utils\Account;
+use BZContactButton\Core\Utils\PermissionCheck;
+use BZContactButton\Core\Utils\Settings;
 
 /**
  * Migration API
@@ -31,7 +32,7 @@ class MigrateToStandalone
      */
     public function registerRoute()
     {
-        register_rest_route('bz_contact_button', '/migrate', [
+        register_rest_route(PluginConfig::name(), '/migrate', [
             [
                 'methods'  => ['POST'],
                 'args' => [

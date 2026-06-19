@@ -13,28 +13,22 @@
 
 namespace BZContactButton\Api;
 
-class Api
+use BZContactButton\Core\Api\BaseApi;
+
+class Api extends BaseApi
 {
     /**
-     * Register 5.0 API endpoints
+     * Register API endpoints.
+     *
+     * Shared routes are registered by BaseApi.
+     * Legacy routes are plugin-specific.
      */
     public function __construct()
     {
-        // Site synchronization
-        (new Connection\Sync())->registerRoute();
-        (new Connection\Disconnect())->registerRoute();
-        (new Connection\Connect())->registerRoute();
+        // Register shared routes (Connect, Disconnect, Sync, Settings, Editor, Analytics)
+        parent::__construct();
 
-        // Plugin settings
-        (new Settings\UpdateSettings())->registerRoute();
-
-        // Editor
-        (new Connection\StartEditorSession())->registerRoute();
-
-        // Analytics
-        (new Analytics\Overview())->registerRoute();
-
-        // Legacy
+        // Legacy (plugin-specific)
         (new Utils\DeleteLegacyBackup())->registerRoute();
         (new Utils\RevertToLegacy())->registerRoute();
     }
