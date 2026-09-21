@@ -15,6 +15,7 @@ namespace BZContactButton\Admin;
 
 use BZContactButton\Core\Admin\BaseAdmin;
 use BZContactButton\Core\Utils\PermissionCheck;
+use BZContactButton\Migration\NewInstallHandover;
 
 # No script kiddies
 defined('ABSPATH') or die('No script kiddies please!');
@@ -49,6 +50,51 @@ class Admin extends BaseAdmin
                 wp_redirect(admin_url("admin.php?page=bz_button_contact"));
             }
         });
+    }
+
+    /**
+     * Tell the dashboard when this signup is going to hand the site over.
+     *
+     * The screen says so under the button that does it, which is where the
+     * user is actually looking and deciding. Nothing is decided in the browser:
+     * with this missing, the signup behaves exactly as it always has.
+     */
+    protected function getLocalizeData(): array
+    {
+        $data = parent::getLocalizeData();
+        $handover = $this->handoverData();
+
+        if ($handover !== null) {
+            $data['handover'] = $handover;
+        }
+
+        return $data;
+    }
+
+    /**
+     * What the welcome screen needs to announce the handover, or null.
+     *
+     * The capability is part of the question: someone who may not install
+     * plugins is never moved, so they are never told they will be.
+     *
+     * @return array|null
+     */
+    private function handoverData()
+    {
+        if (!NewInstallHandover::isPending() || !current_user_can('install_plugins')) {
+            return null;
+        }
+
+        return [
+            // Named as "this plugin" rather than by name: the only installs
+            // that reach this screen are new ones, which never carry the old
+            // system's name, so there is nothing for a name to disambiguate.
+            'notice' => __('This plugin is now a part of Buttonizer. Creating your account installs Buttonizer and takes you straight there.', 'button-contact-vr'),
+
+            // Back here on a full request, which is the only place the
+            // handover can run. It forwards to Buttonizer from there.
+            'continueUrl' => admin_url('admin.php?page=bz_button_contact'),
+        ];
     }
 
     /**

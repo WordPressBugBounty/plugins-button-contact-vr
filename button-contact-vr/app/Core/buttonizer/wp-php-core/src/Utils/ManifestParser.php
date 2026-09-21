@@ -30,7 +30,7 @@
  *
  * @package BZContactButton\Core\Utils
  *
- * Modified by buttonizer on 18-June-2026 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by buttonizer on 17-September-2026 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace BZContactButton\Core\Utils;

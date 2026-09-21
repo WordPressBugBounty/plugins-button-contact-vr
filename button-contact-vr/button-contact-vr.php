@@ -4,7 +4,7 @@
  * Plugin Name: Buttonizer - Live Chat, AI Chatbot, Call, Chat, Contact Button
  * Plugin URI: https://buttonizer.io
  * Description: Powerful platform with Live Chat, AI Chatbots, and Real-Time Visitor Monitoring! Also, create Call, Email, SMS, & Contact buttons to increase conversions. Supports WhatsApp, Messenger, Live Chat, and 40+ other actions.
- * Version: 5.0.8
+ * Version: 5.1.0
  * Author: Buttonizer
  * Author URI: https://buttonizer.io
  * License: GPLv2
@@ -35,12 +35,33 @@ if (get_option("button_contact_legacy", 'undefined') === "undefined") {
 // Load legacy version if detected / chosen
 if ($legacyUser || defined("BZ_CONTACT_BUTTON_USE_LEGACY")) {
     define('BZ_CONTACT_BUTTON_MAIN_FILE', __FILE__);
+    define('BZ_CONTACT_BUTTON_PLUGIN_FILE', __FILE__);
 
-    // Load in legacy
-    require_once __DIR__ . "/legacy/plugin.php";
+    // Needed before the decision below, and for the notice after it.
+    require_once __DIR__ . "/EnvVars.php";
+    require_once __DIR__ . "/app/autoloader.php";
+
+    // Buttonizer may already be serving this exact system from its embedded
+    // module — it is the same code, declared in the global namespace, so a
+    // second copy is a fatal redeclaration.
+    //
+    // This plugin loads first, so it is the one that steps aside: the user
+    // migrated, and reactivating this plugin afterwards should not move their
+    // screens back out of the menu they have been using since. The class check
+    // stays as the last word for anything that gets here another way.
+    $buttonizerServesIt = \BZContactButton\Migration\TargetPlugin::servesOurLegacySystem();
+
+    if (!$buttonizerServesIt && !class_exists('PZF', false) && !defined('PZF_FILE')) {
+        // Load in legacy
+        require_once __DIR__ . "/legacy/plugin.php";
+    }
+
+    // Offer the move to Buttonizer here too. Legacy users are exactly who the
+    // embedded module is for, and without this they would never be told.
+    \BZContactButton\Migration\InstallNotice::boot();
 } else {
     // Define current version
-    define('BZ_CONTACT_BUTTON_VERSION', '5.0.8');
+    define('BZ_CONTACT_BUTTON_VERSION', '5.1.0');
     define('BZ_CONTACT_BUTTON_PLUGIN_FILE', __FILE__);
 
     // Autoloader
@@ -83,13 +104,31 @@ if ($legacyUser || defined("BZ_CONTACT_BUTTON_USE_LEGACY")) {
 
     // Initialize
     require_once __DIR__ . "/init.php";
-
-    // Uninstall
-    register_uninstall_hook(__FILE__, 'bzContactButtonUninstallEvent');
 }
+
+// Uninstall. Registered whichever code path ran: a legacy install is exactly
+// the one whose bookkeeping has to go when the plugin does.
+register_uninstall_hook(__FILE__, 'bzContactButtonUninstallEvent');
 
 function bzContactButtonUninstallEvent()
 {
+    // A deleted plugin should not leave the site remembering a migration.
+    // Ahead of the disconnect below, which returns early on any install that
+    // never had an account — every legacy site among them.
+    if (class_exists('\\BZContactButton\\Migration\\TargetPlugin')) {
+        \BZContactButton\Migration\TargetPlugin::forgetMigrationState();
+    }
+
+    // A legacy install never had a cloud connection, and its own code path
+    // never calls PluginConfig::init() — nothing below this can run safely
+    // without it, ApiRequest included.
+    if (
+        class_exists('\\BZContactButton\\Migration\\RunningSystem') &&
+        \BZContactButton\Migration\RunningSystem::isLegacy()
+    ) {
+        return;
+    }
+
     // Only handle uninstall for the new (non-legacy) code path
     if (!class_exists('\\BZContactButton\\Core\\Utils\\ApiRequest')) {
         return;
